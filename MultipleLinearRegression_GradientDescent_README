@@ -1,0 +1,33 @@
+-- SUMMARY --
+
+This is a README file for Multiple linear regression implemented using pyspark. Implemented a standalone Python/Spark program to perform multiple linear regression using the gradient descent approach for the estimate of beta.It performs the multiple linear regression by starting with an initial set of parameter values and iteratively moving towards a set of parameter values that minimizes the function such that we can reach the global local minimum. I have tweaked the final beta estimate formula to "Beta = Beta + alpha*(B-(A*Beta))" where A and B could be computed in a parallel way by computing X*X Transpose and X*Y. Beta and step size is updated iteratively and stopped when it converges to its local minimum. It takes the yx file as input, where on each line y is the first element and the remaining elements constitute the x. Finally, Beta coefficients are written to the output file.
+
+-- REQUIREMENTS --
+
+HADOOP Environment or Cloudera VM.
+
+
+-- Running the program --
+
+* Before you run the sample, you must create the input location in Cluster. Use the following commands to create the input directory /users/sgunase2/linearregression in DSBA Hadoop Cluster:
+$ mkdir linearregression
+$ cd linearregression
+
+* Move the input files(yxlin.csv and yxlin2.csv) provided to use as input, and move them to users/sgunase2/linearregression directory in HDFS. 
+$ scp *.csv sgunase2@dsba-hadoop.uncc.edu:/users/sgunase2/linearRegression
+
+* Submit the python script passing two inputs provided and also the output file is generated on the DSBA hadoop cluster using the below command. 
+$spark-submit linreg_GradientDescent_Convergence.py file:///users/sgunase2/linearRegression/yxlin.csv > yxlin_GradientDescent.output
+$spark-submit linreg_GradientDescent_Convergence.py file:///users/sgunase2/linearRegression/yxlin2.csv > yxlin2_GradientDescent.output
+
+* Output can be seen using the below commands:
+$ cat yxlin_GradientDescent.output 
+$ cat yxlin2_GradientDescent.output
+
+* If you want to copy the output files to your local machine. Use the following command.
+$ scp sgunase2@dsba-hadoop.uncc.edu:/users/sgunase2/linearRegression/*.output .
+
+-- CONTACT --
+
+* Sampath Kumar Gunasekaran (sgunase2@uncc.edu)
+
